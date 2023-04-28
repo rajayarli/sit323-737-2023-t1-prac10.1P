@@ -8,10 +8,10 @@ spec:
   containers:
     - image: 68017237/image1:latest
       name: nodeimage1
-      imagePullPolicy: Never
+      imagePullPolicy: Always
       ports:
         - containerPort: 3001
   dnsPolicy: ClusterFirst
-  restartPolicy: Always
+  restartPolicy: Never
   
 
