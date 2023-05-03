@@ -17,7 +17,7 @@ spec:
         tier: frontend
     spec:
       containers:
-      - name: mynode
-        image: 68017237/image1:latest
+      - name: mynode1
+        image: 68017237/new-app:latest
         ports:
         - containerPort: 8080

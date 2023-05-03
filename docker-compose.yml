@@ -1,8 +1,8 @@
-version: '3'
+version: '2'
 
 services:
   main:
-    image: 68017237/image1:latest
+    image: 68017237/new-app:latest
     healthcheck:
       test: ["CMD"]
       interval: 30s

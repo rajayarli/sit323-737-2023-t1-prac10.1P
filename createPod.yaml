@@ -1,12 +1,12 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: mypod
+  name: mypods
   labels:
-    run: mypod
+    run: mypods
 spec:
   containers:
-    - image: 68017237/image1:latest
+    - image: 68017237/new-app:latest
       name: nodeimage1
       imagePullPolicy: Always
       ports:

@@ -1,8 +1,10 @@
 const express= require("express");
-const res = require("express/lib/response");
+
 const app= express();
 const fs = require('fs');
 const winston = require('winston');
+const res = require("express/lib/response");
+
 const logger = winston.createLogger({
     level: 'info',
     format: winston.format.json(),
@@ -32,6 +34,9 @@ const add= (n1,n2) => {
 const multi= (n1,n2)=>{
     return n1*n2;
 }
+const p=(n1,n2)=>{
+    return Math.pow(n1,n2);
+}
 const sub= (n1,n2)=>{
     return n1-n2;
 }
@@ -43,6 +48,8 @@ const div=(n1,n2)=>{
     return n1/n2;
     }
 }
+
+
 app.get("/add", (req,res)=>{
     try{
     const n1= parseFloat(req.query.n1);
@@ -62,10 +69,11 @@ app.get("/add", (req,res)=>{
     }
     logger.info('Parameters '+n1+' and '+n2+' received for addition');
     const result = add(n1,n2);
-    res.status(200).json({statuscocde:200, data: result }); 
+    res.status(200).json({statuscode:200, data: result }); 
+
     } catch(error) { 
         console.error(error)
-        res.status(500).json({statuscocde:500, msg: error.toString() })
+        res.status(500).json({statuscode:500, msg: error.toString() })
       }
 });
 app.get("/multi", (req,res)=>{
@@ -88,10 +96,11 @@ app.get("/multi", (req,res)=>{
     }
     logger.info('Parameters '+n1+' and '+n2+' received for multiplication');
     const result = multi(n1,n2);
-    res.status(200).json({statuscocde:200, data: result }); 
+    res.status(200).json({statuscode:200, data: result }); 
+
     } catch(error) { 
         console.error(error)
-        res.status(500).json({statuscocde:500, msg: error.toString() })
+        res.status(500).json({statuscode:500, msg: error.toString() })
       }
 });
 app.get("/div", (req,res)=>{
@@ -113,11 +122,38 @@ app.get("/div", (req,res)=>{
     }
     logger.info('Parameters '+n1+' and '+n2+' received for division');
     const result = div(n1,n2);
-    res.status(200).json({statuscocde:200, data: result }); 
+    res.status(200).json({statuscode:200, data: result }); 
     } catch(error) { 
         console.error(error)
-        res.status(500).json({statuscocde:500, msg: error.toString() })
+        res.status(500).json({statuscode:500, msg: error.toString() })
       }
+});
+
+app.get("/p", (req,res)=>{
+    try{
+        const n1= parseFloat(req.query.n1);
+        const n2=parseFloat(req.query.n2);
+        if(isNaN(n1)) {
+            logger.error("n1 is incorrectly defined");
+            throw new Error("n1 incorrectly defined");
+        }
+        if(isNaN(n2)) {
+            logger.error("n2 is incorrectly defined");
+            throw new Error("n2 incorrectly defined");
+        }
+
+        if (n1 === NaN || n2 === NaN) {
+            console.log()
+            throw new Error("Parsing Error");
+        }
+        logger.info('Parameters '+n1+' and '+n2+' received for power');
+        const result = p(n1,n2);
+        res.status(200).json({statuscode:200, data: result }); 
+    } 
+    catch(error) { 
+        console.error(error)
+        res.status(500).json({statuscode:500, msg: error.toString() })
+    }
 });
 app.get("/sub", (req,res)=>{
     try{
@@ -138,13 +174,13 @@ app.get("/sub", (req,res)=>{
     }
     logger.info('Parameters '+n1+' and '+n2+' received for substraction');
     const result = sub(n1,n2);
-    res.status(200).json({statuscocde:200, data: result }); 
+    res.status(200).json({statuscode:200, data: result }); 
     } catch(error) { 
         console.error(error)
-        res.status(500).json({statuscocde:500, msg: error.toString() })
+        res.status(500).json({statuscode:500, msg: error.toString() })
       }
 });
-const port=3000;
+const port =3030;
 app.listen(port,()=> {
-    console.log("hello i'm listening to port " +port);
+    console.log("hello i'm Running in ", port);
 })
